@@ -13,8 +13,6 @@ y = df["User ID"]
 clf = svm.SVC(kernel="linear", C=1, probability=True)
 clf.fit(X, y)
 
-print (X.shape)
-
 # Save the model as a pickle file
 filename = 'svm.pkl'
 pickle.dump(clf, open(filename, 'wb'))
