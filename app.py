@@ -6,7 +6,7 @@ json_string = """
 {
     "Model": "RF",
     "HT": {
-            "Mean": 27,
+            "Mean": 27.1,
             "STD": 34.34
             },
     "PPT": {
