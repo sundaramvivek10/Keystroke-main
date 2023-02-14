@@ -34,9 +34,12 @@ xgb_model = pickle.load(open("xgb.pkl", "rb"))
 @app.route("/", methods=["GET", "POST"])
 def predict():
     # Get the input data from the request
-    data = json.loads(json_string)
+    #data = json.loads(json_string)
     #data = request.get_json()
     #data = json.loads(request.data)
+    with open("request.json", "r") as f:
+        data = json.load(f)
+
     model_type = data["Model"]
     features = [data["HT"]["Mean"], data["HT"]["STD"],
                 data["PPT"]["Mean"], data["PPT"]["STD"],
