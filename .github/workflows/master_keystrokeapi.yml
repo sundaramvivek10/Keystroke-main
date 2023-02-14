@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'KeystrokeAPI'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3057CF25E0504DD4918828C1148BDD41 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_36B54A695E654D60A6A42EA5F8C0A6D6 }}
