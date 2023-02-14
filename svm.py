@@ -10,9 +10,9 @@ X = df.drop(["User ID", "Number"], axis=1)
 y = df["User ID"]
 
 #Train the SVM model on the training data
-clf = svm.SVC(kernel="linear", C=1, probability=True)
-clf.fit(X, y)
+sv = svm.SVC(kernel="linear", C=1, probability=True)
+sv.fit(X, y)
 
 # Save the model as a pickle file
 filename = 'svm.pkl'
-pickle.dump(clf, open(filename, 'wb'))
+pickle.dump(sv, open(filename, 'wb'))

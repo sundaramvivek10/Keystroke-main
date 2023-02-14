@@ -10,9 +10,9 @@ X = df.drop(["User ID", "Number"], axis=1)
 y = df["User ID"]
 
 # Initialize and fit the random forest classifier
-clf = RandomForestClassifier(n_estimators=100, random_state=0)
-clf.fit(X, y)
+rf = RandomForestClassifier(n_estimators=100, random_state=0)
+rf.fit(X, y)
 
 # Save the model to a pickle file
 with open("rf.pkl", "wb") as f:
-    pickle.dump(clf, f)
+    pickle.dump(rf, f)
