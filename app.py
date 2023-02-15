@@ -51,7 +51,8 @@ def predict():
         case "RF":
             prediction = rf_model.predict([features])[0]
         case "XGB":
-            prediction = xgb_model.predict([features])[0] + 1
+            prediction = xgb_model.predict([features])[0] + 1 #+1 is added here because XGB starts from 0
+            #-1 was added when fitting the data
         case other:
             return "Error: Invalid model type"
     
