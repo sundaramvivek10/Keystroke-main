@@ -18,7 +18,7 @@
 
     <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}" method="post">
-      <input type="text" name="model" placeholder="Type of Model" required="required" /><br>
+      <input type="text" name="model" placeholder="Model : RF | SVM | XGB" required="required" /><br>
       <br>
       <input type="text" name="HT_Mean" placeholder="HT Mean" required="required" />
       <input type="text" name="HT_STD" placeholder="HT Std Dev" required="required" /><br>

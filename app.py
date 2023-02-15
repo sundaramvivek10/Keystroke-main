@@ -1,6 +1,6 @@
-from flask import Flask, request
-import json
+from flask import Flask, request, render_template
 import pickle
+import numpy as np
 
 json_string = """
 {
@@ -31,32 +31,31 @@ rf_model = pickle.load(open("rf.pkl", "rb"))
 xgb_model = pickle.load(open("xgb.pkl", "rb"))
 
 
-@app.route("/", methods=["GET", "POST"])
-def predict():
-    # Get the input data from the request
-    #data = json.loads(json_string)
-    #data = request.get_json()
-    #data = json.loads(request.data)
-    with open("request.json", "r") as f:
-        data = json.load(f)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-    model_type = data["Model"]
-    features = [data["HT"]["Mean"], data["HT"]["STD"],
-                data["PPT"]["Mean"], data["PPT"]["STD"],
-                data["RRT"]["Mean"], data["RRT"]["STD"],
-                data["RPT"]["Mean"], data["RPT"]["STD"]]
+
+@app.route('/predict', methods=["POST"])
+def predict():
+    alldata = [x for x in request.form.values()]
+    model_type = alldata[0]
+    init_features = alldata[1:]
+    features = np.array(init_features, dtype=object)
     match model_type:
         case "SVM":
             prediction = svm_model.predict([features])[0]
         case "RF":
             prediction = rf_model.predict([features])[0]
         case "XGB":
-            prediction = xgb_model.predict([features])[0] + 1 #+1 is added here because XGB starts from 0
-            #-1 was added when fitting the data
+            # +1 is added here because XGB starts from 0
+            prediction = xgb_model.predict([features])[0] + 1
+            # -1 was added when fitting the data
         case other:
-            return "Error: Invalid model type"
-    
-    return str(prediction)
+            return render_template('index.html', prediction_text="Error: Invalid model type")
+
+    return render_template('index.html', prediction_text='The user you are trying to predict is {}'.format(prediction))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
